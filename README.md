@@ -30,3 +30,5 @@ Or
 - Use it: `PerlinGen::generate()`.
 ## Sources
 - This code uses the `stb` and `glm` libraries.
+## Future Updates
+- Add parameter tweaking.
