@@ -1,5 +1,5 @@
-#ifndef ADD_VERTEX_H
-#define ADD_VERTEX_H
+#ifndef UTILS_H
+#define UTILS_H
 
 #include <iostream>
 #include <stdlib.h>

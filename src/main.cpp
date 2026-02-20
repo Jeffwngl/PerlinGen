@@ -1,13 +1,13 @@
 #include <iostream>
 #include <stdlib.h>
+#include <fstream>
 
 #define STB_PERLIN_IMPLEMENTATION
 #include <stb_perlin.h>
 #include <glm/mat4x4.hpp>
 #include <glm/glm.hpp>
 
-#include <add_vertex.h>
-
+#include <utils.h>
 
 const unsigned int CHUNK_WIDTH = 32;
 const unsigned int CHUNK_LENGTH = 32;
@@ -21,22 +21,9 @@ float airThreshold = -0.5f;
 const int airID = 0;
 const int stoneID = 1;
 
-typedef struct Vertex {
-    glm::vec3 position;
-    glm::vec3 normal;
-    glm::vec3 tex;
-};
+void exportOBJ(const std::vector<Vertex>& vertices, const std::string& filename);
 
 std::vector<Vertex>vertices;
-
-
-void addBottomFace(std::vector<Vertex>& vertices, int x, int y, int z);
-void addTopFace(std::vector<Vertex>& vertices, int x, int y, int z);
-void addLeftFace(std::vector<Vertex>& vertices, int x, int y, int z);
-void addRightFace(std::vector<Vertex>& vertices, int x, int y, int z);
-void addFrontFace(std::vector<Vertex>& vertices, int x, int y, int z);
-void addBackFace(std::vector<Vertex>& vertices, int x, int y, int z);
-
 
 int main() {
 
@@ -77,112 +64,48 @@ int main() {
 
                 if (blockType == 1) {
                     if (k == 63 || chunk[i][j][k + 1] == 0) {
-                        addTopFace(vertices, i, j, k);
+                        utils::addTopFace(vertices, i, j, k);
                     }
                     if (k == 0 || chunk[i][j][k - 1] == 0) {
-                        addBottomFace(vertices, i, j, k);
+                        utils::addBottomFace(vertices, i, j, k);
                     }
                     if (j == 31 || chunk[i][j + 1][k] == 0) {
-                        addFrontFace(vertices, i, j, k);
+                        utils::addFrontFace(vertices, i, j, k);
                     }
                     if (j == 0 || chunk[i][j - 1][k] == 0) {
-                        addBackFace(vertices, i, j, k);
+                        utils::addBackFace(vertices, i, j, k);
                     }
                     if (i == 31 || chunk[i + 1][j][k] == 0) {
-                        addRightFace(vertices, i, j, k);
+                        utils::addRightFace(vertices, i, j, k);
                     }
                     if (i == 0 || chunk[i - 1][j][k] == 0) {
-                        addLeftFace(vertices, i, j, k);
+                        utils::addLeftFace(vertices, i, j, k);
                     }
                 }
             }
         }
     }
     
+    exportOBJ(vertices, "model_out.obj");
+
     return 0;   
 }
 
-// neighbour checking
-void addTopFace(std::vector<Vertex>& vertices, int x, int y, int z) {
-    glm::vec3 normal = glm::vec3(0, 0, 1);
-
-    // triangle 1
-    vertices.push_back({glm::vec3(x, y, z + 1), normal});
-    vertices.push_back({glm::vec3(x + 1, y, z + 1), normal});
-    vertices.push_back({glm::vec3(x + 1, y + 1, z + 1), normal});
-
-    // triangle 2
-    vertices.push_back({glm::vec3(x, y + 1, z + 1), normal});
-    vertices.push_back({glm::vec3(x + 1, y, z + 1), normal});
-    vertices.push_back({glm::vec3(x + 1, y + 1, z + 1), normal});
-}
-
-void addBottomFace(std::vector<Vertex>& vertices, int x, int y, int z) {
-    glm::vec3 normal = glm::vec3(0, 0, -1);
+void exportOBJ(const std::vector<Vertex>& vertices, const std::string& filename) {
+    std::ofstream file(filename);
     
-    // triangle 1
-    vertices.push_back({glm::vec3(x, y, z), normal});
-    vertices.push_back({glm::vec3(x + 1, y, z), normal});
-    vertices.push_back({glm::vec3(x + 1, y + 1, z), normal});
+    for (const auto& v : vertices) {
+        file << "v " << v.position.x << " " << v.position.y << " " << v.position.z << "\n";
+    }
 
-    // triangle 2
-    vertices.push_back({glm::vec3(x, y + 1, z), normal});
-    vertices.push_back({glm::vec3(x + 1, y, z), normal});
-    vertices.push_back({glm::vec3(x + 1, y + 1, z), normal});
-}
+    for (const auto& v : vertices) {
+        file << "vn " << v.normal.x << " " << v.normal.y << " " << v.normal.z << "\n";
+    }
 
-void addRightFace(std::vector<Vertex>& vertices, int x, int y, int z) {
-    glm::vec3 normal = glm::vec3(1, 0, 0);
-    
-    // triangle 1
-    vertices.push_back({glm::vec3(x + 1, y, z), normal});
-    vertices.push_back({glm::vec3(x + 1, y, z + 1), normal});
-    vertices.push_back({glm::vec3(x + 1, y + 1, z), normal});
-
-    // triangle 1
-    vertices.push_back({glm::vec3(x + 1, y, z + 1), normal});
-    vertices.push_back({glm::vec3(x + 1, y + 1, z), normal});
-    vertices.push_back({glm::vec3(x + 1, y + 1, z + 1), normal});
-}
-
-void addLeftFace(std::vector<Vertex>& vertices, int x, int y, int z) {
-    glm::vec3 normal = glm::vec3(-1, 0, 0);
-    
-    // triangle 1
-    vertices.push_back({glm::vec3(x, y, z), normal});
-    vertices.push_back({glm::vec3(x, y, z + 1), normal});
-    vertices.push_back({glm::vec3(x, y + 1, z), normal});
-
-    // triangle 1
-    vertices.push_back({glm::vec3(x, y, z + 1), normal});
-    vertices.push_back({glm::vec3(x, y + 1, z), normal});
-    vertices.push_back({glm::vec3(x, y + 1, z + 1), normal});
-}
-
-void addFrontFace(std::vector<Vertex>& vertices, int x, int y, int z) {
-    glm::vec3 normal = glm::vec3(0, 1, 0);
-    
-    // triangle 1
-    vertices.push_back({glm::vec3(x, y + 1, z), normal});
-    vertices.push_back({glm::vec3(x, y + 1, z + 1), normal});
-    vertices.push_back({glm::vec3(x + 1, y + 1, z + 1), normal});
-
-    // triangle 1
-    vertices.push_back({glm::vec3(x, y + 1, z), normal});
-    vertices.push_back({glm::vec3(x + 1, y + 1, z), normal});
-    vertices.push_back({glm::vec3(x + 1, y + 1, z + 1), normal});
-}
-
-void addBackFace(std::vector<Vertex>& vertices, int x, int y, int z) {
-    glm::vec3 normal = glm::vec3(0, -1, 0);
-    
-    // triangle 1
-    vertices.push_back({glm::vec3(x, y, z), normal});
-    vertices.push_back({glm::vec3(x, y, z + 1), normal});
-    vertices.push_back({glm::vec3(x + 1, y, z + 1), normal});
-
-    // triangle 1
-    vertices.push_back({glm::vec3(x, y, z), normal});
-    vertices.push_back({glm::vec3(x + 1, y, z), normal});
-    vertices.push_back({glm::vec3(x + 1, y, z + 1), normal});
+    for (size_t i = 1; i <= vertices.size(); i += 3) {
+        file << "f " << i << "//" << i << " " 
+             << i+1 << "//" << i+1 << " " 
+             << i+2 << "//" << i+2 << "\n";
+    }
+    file.close();
 }

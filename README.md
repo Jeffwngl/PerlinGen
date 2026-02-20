@@ -1,8 +1,10 @@
 # PerlinGen
 
-Perlin Noise Voxel Terrain Generator
+Perlin Noise Voxel Terrain Generator.
 
 Tested on Macos.
+
+There are two versions of this repository, the first one is using it directly in your project via the `perlin_gen.h` file and the second one is building it and creating an `.obj` file to import into your project.
 
 ## Dependencies
 - CMake
@@ -15,7 +17,6 @@ brew install cmake
 brew install gcc
 ```
 - stb_perlin
-Add the `stb_perlin` file to the include directory of you project.
 ## Build
 - `cd` into root directory.
 ```
@@ -24,8 +25,8 @@ cmake ..
 cmake --build
 ```
 Or
-- Add the `perlin_gen.h` file located in `generator/perlin_gen.h` to you project.
+- Add the `perlin_gen.h` file located in `generator/perlin_gen.h` to your project.
 - `include` it in your file using `#include <perlin_gen.h>`.
-- Use it using `PerlinGen::generate()`.
+- Use it: `PerlinGen::generate()`.
 ## Sources
 - This code uses the `stb` and `glm` libraries.
