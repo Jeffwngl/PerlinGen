@@ -30,84 +30,84 @@ class PerlinGen {
             glm::vec3 normal = glm::vec3(0, 0, 1);
 
             // triangle 1
-            v.push_back({glm::vec3(x, y, z + 1), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y, z + 1), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y + 1, z + 1), normal, {0, 0}});
+            v.push_back({glm::vec3(x, y, z + 1), normal, {0.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y, z + 1), normal, {1.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y + 1, z + 1), normal, {1.0f, 1.0f}});
 
             // triangle 2
-            v.push_back({glm::vec3(x, y, z + 1), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y + 1, z + 1), normal, {0, 0}});
-            v.push_back({glm::vec3(x, y + 1, z + 1), normal, {0, 0}});
+            v.push_back({glm::vec3(x, y, z + 1), normal, {0.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y + 1, z + 1), normal, {1.0f, 1.0f}});
+            v.push_back({glm::vec3(x, y + 1, z + 1), normal, {0.0f, 1.0f}});
         }
 
         static void addBottomFace(std::vector<Vertex>& v, int x, int y, int z) {
             glm::vec3 normal = glm::vec3(0, 0, -1);
             
             // triangle 1
-            v.push_back({glm::vec3(x, y, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x, y + 1, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y + 1, z), normal, {0, 0}});
+            v.push_back({glm::vec3(x, y, z), normal, {0.0f, 0.0f}});
+            v.push_back({glm::vec3(x, y + 1, z), normal, {1.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y + 1, z), normal, {1.0f, 1.0f}});
 
             // triangle 2
-            v.push_back({glm::vec3(x, y, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y + 1, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y, z), normal, {0, 0}});
+            v.push_back({glm::vec3(x, y, z), normal, {0.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y + 1, z), normal, {1.0f, 1.0f}});
+            v.push_back({glm::vec3(x + 1, y, z), normal, {0.0f, 1.0f}});
         }
 
         static void addRightFace(std::vector<Vertex>& v, int x, int y, int z) {
             glm::vec3 normal = glm::vec3(1, 0, 0);
             
             // triangle 1
-            v.push_back({glm::vec3(x + 1, y, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y + 1, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y + 1, z + 1), normal, {0, 0}});
+            v.push_back({glm::vec3(x + 1, y, z), normal, {0.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y + 1, z), normal, {1.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y + 1, z + 1), normal, {1.0f, 1.0f}});
 
             // triangle 2
-            v.push_back({glm::vec3(x + 1, y, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y + 1, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y, z + 1), normal, {0, 0}});
+            v.push_back({glm::vec3(x + 1, y, z), normal, {0.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y + 1, z), normal, {1.0f, 1.0f}});
+            v.push_back({glm::vec3(x + 1, y, z + 1), normal, {0.0f, 1.0f}});
         }
 
         static void addLeftFace(std::vector<Vertex>& v, int x, int y, int z) {
             glm::vec3 normal = glm::vec3(-1, 0, 0);
             
             // triangle 1
-            v.push_back({glm::vec3(x, y, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x, y, z + 1), normal, {0, 0}});
-            v.push_back({glm::vec3(x, y + 1, z + 1), normal, {0, 0}});
+            v.push_back({glm::vec3(x, y, z), normal, {0.0f, 0.0f}});
+            v.push_back({glm::vec3(x, y, z + 1), normal, {1.0f, 0.0f}});
+            v.push_back({glm::vec3(x, y + 1, z + 1), normal, {1.0f, 1.0f}});
 
             // triangle 2
-            v.push_back({glm::vec3(x, y, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x, y + 1, z + 1), normal, {0, 0}});
-            v.push_back({glm::vec3(x, y + 1, z), normal, {0, 0}});
+            v.push_back({glm::vec3(x, y, z), normal, {0.0f, 0.0f}});
+            v.push_back({glm::vec3(x, y + 1, z + 1), normal, {1.0f, 1.0f}});
+            v.push_back({glm::vec3(x, y + 1, z), normal, {0.0f, 1.0f}});
         }
 
         static void addFrontFace(std::vector<Vertex>& v, int x, int y, int z) {
             glm::vec3 normal = glm::vec3(0, 1, 0);
             
             // triangle 1
-            v.push_back({glm::vec3(x, y + 1, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x, y + 1, z + 1), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y + 1, z + 1), normal, {0, 0}});
+            v.push_back({glm::vec3(x, y + 1, z), normal, {0.0f, 0.0f}});
+            v.push_back({glm::vec3(x, y + 1, z + 1), normal, {1.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y + 1, z + 1), normal, {1.0f, 1.0f}});
 
             // triangle 2
-            v.push_back({glm::vec3(x, y + 1, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y + 1, z + 1), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y + 1, z), normal, {0, 0}});
+            v.push_back({glm::vec3(x, y + 1, z), normal, {0.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y + 1, z + 1), normal, {1.0f, 1.0f}});
+            v.push_back({glm::vec3(x + 1, y + 1, z), normal, {0.0f, 1.0f}});
         }
 
         static void addBackFace(std::vector<Vertex>& v, int x, int y, int z) {
             glm::vec3 normal = glm::vec3(0, -1, 0);
             
             // triangle 1
-            v.push_back({glm::vec3(x, y, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y, z + 1), normal, {0, 0}});
+            v.push_back({glm::vec3(x, y, z), normal, {0.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y, z), normal, {1.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y, z + 1), normal, {1.0f, 1.0f}});
 
             // triangle 2
-            v.push_back({glm::vec3(x, y, z), normal, {0, 0}});
-            v.push_back({glm::vec3(x + 1, y, z + 1), normal, {0, 0}});
-            v.push_back({glm::vec3(x, y, z + 1), normal, {0, 0}});
+            v.push_back({glm::vec3(x, y, z), normal, {0.0f, 0.0f}});
+            v.push_back({glm::vec3(x + 1, y, z + 1), normal, {1.0f, 1.0f}});
+            v.push_back({glm::vec3(x, y, z + 1), normal, {0.0f, 1.0f}});
         }
 
     public:
